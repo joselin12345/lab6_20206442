@@ -2,6 +2,7 @@ package Beans;
 
 public class Artista {
     private int idArtista;
+
     private String nombre_artista;
     private String idinstrumento;
     private String idbanda;
