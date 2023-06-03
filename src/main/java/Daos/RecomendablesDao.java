@@ -14,7 +14,11 @@ public class RecomendablesDao {
             e.printStackTrace();
         }
 
-        String sql = "SELECT * FROM canciones ";
+        String sql = "SELECT c.idcancion, c.nombre_cancion, b.idbanda FROM cancion c, banda b\n" +
+                "where c.idcancion IN (SELECT cancion_idcancion FROM reproduccion\n" +
+                "GROUP BY cancion_idcancion  \n" +
+                "having count(*) >2 \n" +
+                "ORDER BY count(*) DESC) and c.banda=b.idbanda;";
         String url = "jdbc:mysql://localhost:3306/lab6sw1?serverTimezone=America/Lima";
 
         try (Connection connection = DriverManager.getConnection(url,"root","root");
@@ -23,6 +27,7 @@ public class RecomendablesDao {
 
             while(resultSet.next()){
                 Cancion cancion = new Cancion();
+                cancion.setIdcancion(resultSet.getInt(1));
                 cancion.setNombreCancion(resultSet.getString(2));
                 cancion.setBanda(resultSet.getString(3));
                 lista.add(cancion);

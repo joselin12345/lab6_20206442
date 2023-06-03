@@ -1,2 +1,4 @@
-package Daos;public class ListaCancionTotal {
+package Daos;
+
+public class ListaCancionTotal {
 }
